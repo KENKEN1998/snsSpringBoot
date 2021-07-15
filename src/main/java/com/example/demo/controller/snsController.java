@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.model.Users;
 
@@ -40,18 +41,39 @@ public class snsController {
 		model.addAttribute("name", user.getName());
 		model.addAttribute("password", user.getName());
         return userList.size() > 0 ? "home" : "error";
-
 	}
 	
 	@RequestMapping(path = "/login/new", method = RequestMethod.GET)
 	public String newUser(Model model) {
-		
-		Users user = new Users();
-		
-		model.addAttribute("user", user);
-		model.addAttribute("pageTitle", "Create New User");
-		
 		return "users/user_form";
+	}
+	
+	@RequestMapping(path = "/login/save", method = RequestMethod.POST)
+	public String saveNewUser(Users user, HttpSession session, Model model) {
+		
+		String sql = "INSERT INTO users (name, password)"
+                + " VALUES (?, ?)";
+        
+		jdbcTemplate.update(sql, user.getName(), user.getPassword());
+
+		return "login";
+	}
+	
+	@RequestMapping(path = "/home/edit", method = RequestMethod.GET)
+	public String editUser(Users user, Model model) {
+		model.addAttribute("user", user);
+		return "users/editUser_form";
+	}
+	
+	@RequestMapping(path = "/edit/save", method = RequestMethod.POST)
+	public String saveEditUser(Users user, HttpSession session, Model model) {
+		
+		String sql =  "UPDATE users SET name=?, password=? "
+                + "WHERE id=?";
+        
+		jdbcTemplate.update(sql, user.getName(), user.getPassword(), user.getId());
+
+		return "home";
 	}
 
 }
