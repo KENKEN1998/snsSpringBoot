@@ -20,15 +20,17 @@
 
 			<div class="p-3">
 				<p>Update Account</p>
-				<div>
+				
+				<p>
 				<input type="text" th:field="*{id}"  class="form-control" readonly="readonly"/>
-				</div>
+				</p>
+				
 				<p>
 					<input type="text" name="name" class="form-control" th:field="*{name}" />
 				</p>
+				
 				<p>
-					<input type="password" name="password" class="form-control"
-						type="text" th:field="*{password}" /><br>
+					<input type="password" name="password" class="form-control" th:field="*{password}" /><br>
 
 					<input type="submit" value="Save" class="btn btn-primary" />
 				</p>
