@@ -15,7 +15,7 @@
 <body>
 	<div class="container-fluid text-center">
 
-		<form action="/edit/save" method="post" th:object="${user}"
+		<form action="/save" method="post" th:object="${user}"
 			style="max-width: 350px; margin: 0 auto">
 
 			<div class="p-3">
@@ -26,7 +26,7 @@
 				</p>
 				
 				<p>
-					<input type="text" name="name" class="form-control" th:field="*{name}" />
+					<input type="text" class="form-control" th:field="*{name}" />
 				</p>
 				
 				<p>
